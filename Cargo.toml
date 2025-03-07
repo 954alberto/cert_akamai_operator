@@ -1,0 +1,26 @@
+[package]
+name = "cert_akamai_operator"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+base64 = "0.22.1"
+futures = "0.3.31"
+k8s-openapi = { version = "0.24.0", features = ["v1_30"] } # Change version to match your K8s cluster
+kube = { version = "0.98.0", features = ["runtime", "derive"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "time"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+reqwest = { version = "0.12.12", default-features = false, features = ["json", "rustls-tls", "gzip"] }
+
+[dev-dependencies]
+tokio = { version = "1.43.0", features = ["full"] }
+mockito = "0.30.0" 
+mockall = "0.13.1"
+
+[profile.release]
+opt-level = 3
+lto = true
+panic = "abort"
+codegen-units = 1
+strip = "debuginfo"
